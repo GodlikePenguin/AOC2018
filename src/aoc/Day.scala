@@ -1,7 +1,5 @@
 package aoc
 
-import java.io.File
-
 import scala.io.Source
 
 abstract class Day(day: Int) extends App {
