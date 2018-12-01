@@ -16,11 +16,7 @@ object Day1 extends Day(1) {
     val nums = input.split("\n")
     while(true) {
       for (num <- nums) {
-        if (num.charAt(0).equals('+')) {
-          sum += Integer.parseInt(num.substring(1))
-        } else if (num.charAt(0).equals('-')) {
-          sum -= Integer.parseInt(num.substring(1))
-        }
+        sum += Integer.parseInt(num)
         if (freqs.contains(sum)) {
           return sum
         }
