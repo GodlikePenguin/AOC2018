@@ -7,18 +7,7 @@ import aoc.Day
 import scala.collection.mutable
 
 object Day1 extends Day(1) {
-  override def A(input: String) = {
-    var sum = 0
-    val nums = input.split("\n")
-    nums.foreach(num => {
-      if (num.charAt(0).equals('+')) {
-        sum += Integer.parseInt(num.substring(1))
-      } else if (num.charAt(0).equals('-')) {
-        sum -= Integer.parseInt(num.substring(1))
-      }
-    })
-    sum
-  }
+  override def A(input: String): Int = input.split("\n").foldLeft(0)((accum, item)=> accum + Integer.parseInt(item))
 
   override def B(input: String) : Int = {
     val freqs = new mutable.HashSet[Int]()
