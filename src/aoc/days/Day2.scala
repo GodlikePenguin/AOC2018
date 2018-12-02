@@ -9,9 +9,8 @@ object Day2 extends Day(2) {
     var twos = 0
     var threes = 0
     input.split("\n").foreach(word => {
-      var map = new mutable.HashMap[Char,Int]()
-      word.foreach(char => map.put(char, word.count(_==char)))
-      val set = map.values.toSet
+      var set = new mutable.HashSet[Int]()
+      word.foreach(char => set.add(word.count(_==char)))
       if (set.contains(2)) twos += 1
       if (set.contains(3)) threes += 1
     })
