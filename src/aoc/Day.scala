@@ -8,9 +8,9 @@ abstract class Day(day: Int) extends App {
 
   protected def test()
 
-  protected def A(input: String): AnyVal
+  protected def A(input: String): Any
 
-  protected def B(input: String): AnyVal
+  protected def B(input: String): Any
 
   override def main(args: Array[String]): Unit = {
     require(day >= 1 && day <= 25)

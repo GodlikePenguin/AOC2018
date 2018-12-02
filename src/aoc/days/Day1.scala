@@ -1,7 +1,5 @@
 package aoc.days
 
-import java.util
-
 import aoc.Day
 
 import scala.collection.mutable
