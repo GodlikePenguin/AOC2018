@@ -9,19 +9,11 @@ object Day2 extends Day(2) {
     var twos = 0
     var threes = 0
     input.split("\n").foreach(word => {
-      var twoAdded = false
-      var threeAdded = false
       var map = new mutable.HashMap[Char,Int]()
       word.foreach(char => map.put(char, word.count(_==char)))
-      map.foreach(e => {
-        if (e._2 == 2 && !twoAdded) {
-          twos += 1
-          twoAdded = true
-        } else if (e._2 == 3 && !threeAdded) {
-          threes += 1
-          threeAdded = true
-        }
-      })
+      val set = map.values.toSet
+      if (set.contains(2)) twos += 1
+      if (set.contains(3)) threes += 1
     })
     twos * threes
   }
@@ -29,8 +21,7 @@ object Day2 extends Day(2) {
   override protected def B(input: String): String = {
     for (a <- input.split("\n")) {
       for (b <- input.split("\n")) {
-        val diff = Hamming.compute(a, b)
-        if (diff == 1) {
+        if (Hamming.compute(a, b) == 1) {
           return a intersect b
         }
       }
