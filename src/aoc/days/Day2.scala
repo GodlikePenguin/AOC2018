@@ -31,8 +31,7 @@ object Day2 extends Day(2) {
       for (b <- input.split("\n")) {
         val diff = Hamming.compute(a, b)
         if (diff == 1) {
-          val inter = a intersect b
-          return inter
+          return a intersect b
         }
       }
     }
