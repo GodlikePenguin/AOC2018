@@ -1,6 +1,7 @@
 package aoc
 
 import scala.io.Source
+import System.nanoTime
 
 abstract class Day(day: Int) extends App {
 
@@ -17,7 +18,11 @@ abstract class Day(day: Int) extends App {
     val fileLocation = s"src/aoc/days/input/day$day.txt"
     val input = readInput(fileLocation)
     test()
-    println(A(input))
-    println(B(input))
+    var (result, time) = profile(A(input))
+    println(s"A returned $result, took $time ms")
+    var (resultB, timeB) = profile(B(input))
+    println(s"B returned $resultB, took $timeB ms")
   }
+
+  def profile[R](code: => R, t: Long = nanoTime) = (code, (nanoTime - t)/1000000)
 }

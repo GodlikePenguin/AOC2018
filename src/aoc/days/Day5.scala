@@ -24,7 +24,7 @@ object Day5 extends Day(5){
     newInput.length
   }
 
-  override protected def B(input: String): Any = {
+  protected def OldB(input: String): Any = {
     var currentMinimum = 1000000
     for (c <- 'a' to 'z') {
       val i = A(input.replaceAll(c.toString, "").replaceAll(c.toString.toUpperCase, ""))
@@ -33,6 +33,13 @@ object Day5 extends Day(5){
       }
     }
     currentMinimum
+  }
+
+  override protected def B(input: String): Any = {
+    val a = ('a' to 'z').par.map(c => {
+      A(input.replaceAll(c.toString, "").replaceAll(c.toString.toUpperCase, ""))
+    })
+    a.min
   }
 
   override protected def test(): Unit = {
