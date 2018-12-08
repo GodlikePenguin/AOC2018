@@ -7,11 +7,11 @@ abstract class Day(day: Int) extends App {
 
   private def readInput(location: String): String = Source.fromFile(location).getLines().mkString("\n")
 
-  protected def test()
-
   protected def A(input: String): Any
 
   protected def B(input: String): Any
+
+  protected def test()
 
   override def main(args: Array[String]): Unit = {
     require(day >= 1 && day <= 25)
