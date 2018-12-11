@@ -80,13 +80,7 @@ object Day11 extends Day(11) {
       var localMax = new mutable.HashMap[(Int, Int), Int]()
       for (x <- 1 to 300-(i-1)) {
         for (y <- 1 to 300-(i-1)) {
-          var sum = 0
-          for (j <- x until x+i) {
-            for (k <- y until y+i) {
-              sum += powerLevels((j, k))
-            }
-          }
-          localMax.put((x, y), sum)
+          localMax.put((x, y), getTotalPowerLevelFor(x, y, i-1, powerLevels))
         }
       }
       var calc = localMax.maxBy(_._2)
