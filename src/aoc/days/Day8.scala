@@ -87,8 +87,6 @@ object Day8 extends Day(8) {
 
   override protected def test(): Unit = {
     assert(A("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2")==138)
-    println(B("1 1 0 1 10 1"))
-
     assert(B("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2")==66)
   }
 }
