@@ -41,6 +41,7 @@ object Day13 extends Day(13) {
 
   override protected def test(): Unit = {
     assert(A("/->-\\        \n|   |  /----\\\n| /-+--+-\\  |\n| | |  | v  |\n\\-+-/  \\-+--/\n  \\------/   ")==(7, 3))
+    assert(B("/>-<\\  \n|   |  \n| /<+-\\\n| | | v\n\\>+</ |\n  |   ^\n  \\<->/")==(6, 4))
   }
 
   def prepareMazeAndCarts(input : String): (mutable.HashMap[(Int, Int), String], mutable.HashSet[Cart]) = {
