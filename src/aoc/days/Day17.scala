@@ -6,7 +6,7 @@ import scala.collection.mutable
 import scala.util.control.Breaks
 
 object Day17 extends Day(17) {
-  override protected def A(input: String): Any = {
+  protected def MagicMethod(input: String): (Int, Int, mutable.HashMap[(Int, Int), String]) = {
     var landscape = mutable.HashMap[(Int, Int), String]()
     landscape.put((500, 0), "+")
     input.split("\n").foreach(line => {
@@ -52,7 +52,7 @@ object Day17 extends Day(17) {
       Breaks.breakable {
         var current = waterQueue.last
         if (current._2 > maxY) {
-          landscape.put(current, "")
+          landscape.remove(current)
           while(waterQueue.contains(current)) {
             waterQueue.dequeueFirst(a => a == current) //remove the current element from the queue
             current = (current._1, current._2-1)
@@ -132,8 +132,8 @@ object Day17 extends Day(17) {
 //      printMap(landscape)
 //      println
     }
-    printMap(landscape)
-    landscape.count(a => a._1._2 <= maxY && a._1._2 >= minY && (a._2 == "|" || a._2 == "~"))
+//    printMap(landscape)
+    (minY, maxY, landscape)
   }
 
   def printMap(landscape: mutable.HashMap[(Int, Int), String]): Unit = {
@@ -141,11 +141,45 @@ object Day17 extends Day(17) {
       for (x <- 0 to landscape.maxBy(_._1._1)._1._1) {
         print(landscape.getOrElse((x, y), "."))
       }
-      println()
+      println
     }
   }
 
-  override protected def B(input: String): Any = {}
+  override protected def A(input: String): Any = {
+    var (minY, maxY, landscape) = MagicMethod(input)
+    landscape.count(a => a._1._2 <= maxY && a._1._2 >= minY && (a._2 == "|" || a._2 == "~"))
+  }
+
+  override protected def B(input: String): Any = {
+    var (minY, maxY, landscape) = MagicMethod(input)
+    var fixedMap = mutable.HashMap[(Int, Int), String]()
+    landscape.foreach(a => if (a._2 != "~") {
+      fixedMap.put(a._1, a._2)
+    } else {
+      Breaks.breakable {
+        var current = a._1
+        //check right
+        while (landscape.getOrElse(current, "")=="~") {
+          current = (current._1+1, current._2)
+        }
+        if (landscape.getOrElse(current, "")=="|") {
+          fixedMap.put(a._1, "|")
+          Breaks.break
+        }
+        current = a._1
+        //check right
+        while (landscape.getOrElse(current, "")=="~") {
+          current = (current._1-1, current._2)
+        }
+        if (landscape.getOrElse(current, "")=="|") {
+          fixedMap.put(a._1, "|")
+        } else {
+          fixedMap.put(a._1, a._2)
+        }
+      }
+    })
+    fixedMap.count(a => a._1._2 <= maxY && a._1._2 >= minY && (a._2 == "~"))
+  }
 
   override protected def test(): Unit = {
     assert(A("x=495, y=2..7\ny=7, x=495..501\nx=501, y=3..7\nx=498, y=2..4\nx=506, y=1..2\nx=498, y=10..13\nx=504, y=10..13\ny=13, x=498..504")==57)
