@@ -42,8 +42,8 @@ object Day17 extends Day(17) {
 
     val minY = landscape.filter(a => a._2 != "+").minBy(_._1._2)._1._2
     val maxY = landscape.maxBy(_._1._2)._1._2
-    println(minY)
-    println(maxY)
+//    println(minY)
+//    println(maxY)
 //    printMap(landscape)
 //    println
     var waterQueue = new mutable.Queue[(Int, Int)]()
@@ -90,6 +90,18 @@ object Day17 extends Day(17) {
               }
               Breaks.break
             }
+          }
+
+          //check if we land on a single obstacle (this happens once in my input and isn't handled correctly
+          if (landscape.getOrElse((current._1, current._2+1), "") == "#" &&
+          landscape.getOrElse((current._1-1, current._2+1), "") != "#" &&
+          landscape.getOrElse((current._1+1, current._2+1), "") != "#") {
+            landscape.put(current, "~")
+            waterQueue.dequeueFirst(a => a == current)
+            landscape.put((current._1+1, current._2), "|")
+            waterQueue = waterQueue :+ (current._1+1, current._2)
+            landscape.put((current._1-1, current._2), "|")
+            waterQueue = waterQueue :+ (current._1-1, current._2)
           }
 
           landscape.put(current, "~") //resting water
