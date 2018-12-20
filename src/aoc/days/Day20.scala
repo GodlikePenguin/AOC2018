@@ -7,7 +7,6 @@ import scala.collection.mutable.ArrayBuffer
 
 object Day20 extends Day(20) {
   override protected def A(input: String): Any = {
-    println(Runtime.getRuntime().maxMemory())
     val regex = input.substring(1, input.length-1)
     val nodes = new mutable.HashSet[(Int, Int)]()
     val edges = new mutable.HashSet[((Int, Int), (Int, Int))]()
@@ -105,7 +104,16 @@ object Day20 extends Day(20) {
     }
   }
 
-  override protected def B(input: String): Any = {}
+  override protected def B(input: String): Any = {
+    val regex = input.substring(1, input.length-1)
+    val nodes = new mutable.HashSet[(Int, Int)]()
+    val edges = new mutable.HashSet[((Int, Int), (Int, Int))]()
+    val paths = expand(regex)
+    for (path <- paths) {
+      explorePath(path, nodes, edges)
+    }
+    BFS(nodes, edges).count(_._2 > 1000)
+  }
 
   override protected def test(): Unit = {
     assert(A("^WNE$")==3)
