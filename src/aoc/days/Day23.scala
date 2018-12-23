@@ -33,7 +33,7 @@ object Day23 extends Day(23) {
 
     for (z <- nanobots.minBy(_._1)._1._3 to nanobots.maxBy(_._1)._1._3) {
       for (y <- nanobots.minBy(_._1)._1._2 to nanobots.maxBy(_._1)._1._2) {
-        for (x <- 0L to nanobots.maxBy(_._1)._1._1) {
+        for (x <- nanobots.minBy(_._1)._1._1 to nanobots.maxBy(_._1)._1._1) {
           var localCount = 0
           nanobots.foreach(bot => {
              if (Math.abs(bot._1._1 - x) + Math.abs(bot._1._2 - y) + Math.abs(bot._1._3 - z) <= bot._2) localCount += 1
